@@ -15,6 +15,8 @@ import "vant/lib/index.less";
 // 引入flexible
 import "amfe-flexible";
 
+import "./utils/dayjs";
+
 //测试请求
 // import request from "@/utils/request";
 // request.get("v1_0/channels").then((res) => {
@@ -23,7 +25,6 @@ import "amfe-flexible";
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
-
 new Vue({
   router,
   store,

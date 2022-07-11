@@ -1,6 +1,10 @@
 <template>
   <div>
-    <van-nav-bar title="登录" />
+    <van-nav-bar title="登录">
+      <template #left>
+        <van-icon name="cross" color="#eee" @click="$router.back()" />
+      </template>
+    </van-nav-bar>
     <van-form @submit="onSubmit" ref="form">
       <van-field
         v-model="user.mobile"
@@ -89,7 +93,7 @@ export default {
           },
           {
             pattern: /^\d{6}$/,
-            message: "请输入6为数验证码",
+            message: "请输入6位数验证码",
           },
         ],
       },
@@ -108,9 +112,11 @@ export default {
       //利用try catch捕获失败结果
       try {
         const res = await login(this.user);
-        console.log(res);
+        // console.log(res);
+        this.$store.commit("setUser", res.data.data); //在登录成功后获取token值并传给vuex进行存储
         // 成功提示 也可以写为this.$toast(message:'登陆成功'),这样写不需要再引入Toast
         Toast.success("登陆成功");
+        this.$router.push("/"); //登陆成功后跳转到首页
       } catch (e) {
         // console.log(e.response.data.message);
         // 失败提示
